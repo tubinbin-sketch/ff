@@ -1244,6 +1244,48 @@
 
     </script>
 </body>
+<audio id="bg-music" autoplay loop src="hu.mp3" type="audio/mp3"></audio>
+    <button id="music-btn">Tắt nhạc</button>
 
+    <script>
+        const music = document.getElementById('bg-music');
+        const btn = document.getElementById('music-btn');
+
+        btn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                btn.textContent = 'Tắt nhạc';
+            } else {
+                music.pause();
+                btn.textContent = 'Bật nhạc';
+            }
+        });
+
+        // Khởi động phát lại nếu bị chặn
+        document.addEventListener("click", () => {
+            if (music.paused) {
+                music.play().catch(() => {});
+            }
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            music.play().catch(() => {
+                console.log("Trình duyệt có thể đã chặn tự chạy âm thanh.");
+            });
+        });
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.bottom = "0";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+</body>
 </html>
 
